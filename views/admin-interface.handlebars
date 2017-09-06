@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 text-center" style="padding: 20px;">
+      <h1><strong>Welcome Administrator</strong></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">Options</div>
+        <div class="panel-body text-center">
+          <a href="/adminAddArch"><button style="width: 100%;" class="btn btn-default btn-sm">Add Architect</button></a><br><br>
+          <a href="/adminAddClient"><button style="width: 100%;" class="btn btn-default btn-sm">Add Client</button></a><br><br>
+          <a href="/adminAddAdmin"><button style="width: 100%;" class="btn btn-default btn-sm">Add Admin</button></a><br><br>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">All Users</div>
+        <div class="panel-body">
+            {{#each contacts}}
+              <button onClick="getUser({{this.UserId}})" style="width: 100%;" class="btn btn-default btn-sm">{{this.first_name}} {{this.last_name}}</button><br><br>
+            {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">User Data</div>
+        <div class="panel-body">
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">ADDRESS</button><br><br>
+            <input class="text-center" id="address" type="text" style="width: 100%" disabled><br><br>
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">CITY</button><br><br>
+            <input class="text-center" id="city" type="text" style="width: 100%" disabled><br><br>
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">STATE</button><br><br>
+            <input class="text-center" id="state" type="text" style="width: 100%" disabled><br><br>
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">ZIP</button><br><br>
+            <input class="text-center" id="zip" type="text" style="width: 100%" disabled><br><br>
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">PHONE</button><br><br>
+            <input class="text-center" id="phone" type="text" style="width: 100%" disabled><br><br>
+            <button style="width: 100%" class="btn btn-default btn-sm disabled">EMAIL</button><br><br>
+            <input class="text-center" id="email" type="text" style="width: 100%" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" style="padding: 0; margin: 0;">
+  <div class="row" style="padding:0; margin:0; width: 100%; background-color: #F5F5F5;">
+    <div class="col-sm-12 text-center" style="padding: 5px 0; background-color: #F5F5F5;">
+      <a href="/logout"><button class="btn btn-default btn-sm">Logout</button></a>
+    </div>
+  </div>
+</div>
+<script>
+  function getUser(x) { //show client contact info
+    $.ajax({
+        url: '/getUserData/' + x,
+        method: 'GET'
+    }).then(function (response) {
+        $('#address').val(response.addr_number + ' ' +
+            response.addr_street + ' Apt. ' + response.apt_number);
+        $('#city').val(response.city);
+        $('#state').val(response.state);
+        $('#zip').val(response.zip_code);
+        $('#email').val(response.User.email);
+        $('#phone').val(response.phone_number);
+    }).catch(function (err) {
+        console.error(err);
+    });
+  }
+</script>

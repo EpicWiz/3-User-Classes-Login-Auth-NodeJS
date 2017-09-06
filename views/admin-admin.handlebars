@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Add a Super-User</h2>
+        <p style="color: red;">Warning, these users can add other administrators. Grant access with caution.</p>
+        <form action="/api/admin/addAdmin" method="POST" class="form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input name="email" type="text" class="form-control" id="email" placeholder="Required" required="true">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Required" required="true">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <p>
+          Please fill all required fields to continue. Or <a href="/completeLogin">Cancel</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="container-fluid text-center" style="padding:10px 0; margin:0 0 30px 0; width: 100%; background-color: #F5F5F5;">Logged in as: {{contact.first_name}} {{contact.last_name}}</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading text-center">
+          Client List:
+        </div>
+        <div class="panel-body" style="min-height: 300px;">
+          <div class="list-group text-center">
+            {{#each arch}}
+              <a href="#" onclick="getClient({{this.id}})" class="list-group-item">{{this.Contact.first_name}} {{this.Contact.last_name}}</a>
+            {{/each}}
+          </div>
+        </div>
+        <div class="panel-footer text-center"><a href="/addClientPage" style="color:black; text-decoration: underline;">Add Client</a></div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          Client Contact Information:
+        </div>
+        <div class="panel-body" style="min-height: 300px;">
+          <div class="list-group text-center">
+            <a href="#" class="list-group-item">
+              <strong>ADDRESS:</strong><br><br>
+              <span style="text-align: center; width: 100%;" id="clientAddr"></span>
+            </a>
+            <a href="#" class="list-group-item">
+              <strong>EMAIL:</strong><br><br>
+              <span id="clientEmail"></span>
+            </a>
+            <a href="#" class="list-group-item">
+              <strong class="text-center">PHONE:</strong><br><br>
+              <span id="clientPhone"></span>
+            </a>
+          </div>
+        </div>
+        <div class="panel-footer text-center">
+          <span style="visibility: hidden;"> Add Client</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          File Upload:
+        </div>
+        <div class="panel-body" style="min-height: 300px;">
+          <div id="userDocs" class="list-group text-center">
+
+          </div>
+          <form action="/fileUpload" method="POST" enctype="multipart/form-data" style="width: 100%;">
+            <div class="form-group text-center" style="width: 100%;">
+                {{#each arch}}
+                  <span class="radios"><input type="radio" name="client" value="{{this.id}}">{{this.Contact.first_name}} {{this.Contact.last_name}}</span>
+                {{/each}}
+            </div>
+            <div class="form-group">
+              <input style="width: 100%;" type="text" name="fileName" placeholder="File Name(no spaces or special characters)">
+            </div>
+            <div class="form-group">
+              <input type="file" name="filetoupload"><br>
+            </div>
+            <div class="form-group">
+              <input type="submit">
+            </div>
+          </form>
+        </div>
+        <div class="panel-footer text-center">
+          <span style="visibility: hidden;"> Add Client</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          Comments:
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th>File Name</th>
+                      <th>Date</th>
+                      <th>Comment</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {{#each files}}
+                  <tr>
+                      <td>{{this.path}}</td>
+                      <td>
+                        {{this.updatedAt}}
+                      </td>
+                      <td>{{this.comment}}</td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+        </div>
+        <div class="panel-footer text-center">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" style="padding: 0; margin: 0;">
+    <div class="row" style="padding:0; margin:0; width: 100%; background-color: #F5F5F5;">
+        <div class="col-sm-12 text-center" style="padding: 5px 0; background-color: #F5F5F5;">
+            <a href="/logout"><button class="btn btn-default btn-sm">Logout</button></a>
+            <a href="/archSettings"><button class="btn btn-default btn-sm">Settings</button></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function getClient(x) { //show client contact info
+        $.ajax({
+            url: '/getClientData/' + x,
+            method: 'GET'
+        }).then(function (response) {
+            $('#userDocs').html('');
+            $('#clientAddr').html(response[0].addr_number + ' ' +
+                response[0].addr_street + ' Apt. ' + response[0].apt_number + ' <br>' +
+                response[0].city + ', ' + response[0].state + ' ' + response[0].zip_code);
+            $('#clientEmail').html(response[0].User.email);
+            $('#clientPhone').html(response[0].phone_number);
+
+            for (let i = 0; i < response[1].length; i ++) {
+              let readableName = response[1][i].path.slice(response[1][i].path.lastIndexOf("/") + 1, response[1][i].path.length);
+              $('#userDocs').append('<a href="/download/' + readableName +
+              '" class="list-group-item">' + readableName + '</a>');
+            }
+
+        }).catch(function (err) {
+            console.error(err);
+        });
+    }
+
+</script>

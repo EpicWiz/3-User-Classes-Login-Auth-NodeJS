@@ -1,0 +1,77 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Add a Client</h2>
+        <form action="/api/admin/addClient" method="POST" class="form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input name="email" type="text" class="form-control" id="email" placeholder="Required" required="true">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Required" required="true">
+          </div>
+          <div class="form-group">
+            <label for="assoc">Architect (Required)</label>
+            <select class="state form-control" name="assoc" id="assoc">
+              <option>Select One</option>
+              {{#each arch}}
+                <option value="{{this.id}}">{{this.Contact.first_name}} {{this.Contact.last_name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input name="first_name" type="text" class="form-control" id="first_name" placeholder="Required" required="true">
+          </div>
+          <div class="form-group">
+            <label for="middle_name">Middle Name</label>
+            <input name="middle_name" type="text" class="form-control" id="middle_name" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Required">
+          </div>
+          <div class="form-group">
+            <label for="addr_number">Street Number</label>
+            <input name="addr_number" type="number" min="1" max="9999999" class="form-control" id="addr_number" placeholder="Required">
+          </div>
+          <div class="form-group">
+            <label for="addr_street">Street Name</label>
+            <input name="addr_street" type="text" class="form-control" id="addr_street" placeholder="Required">
+          </div>
+          <div class="form-group">
+            <label for="apt_number">Apt. Number</label>
+            <input name="apt_number" type="text" class="form-control" id="apt_number" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input name="city" type="text" class="form-control" id="city" placeholder="Required">
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <select class="state form-control" name="state" id="state">
+              <option>Select One</option>
+              <option value="AZ">Arizona (AZ)</option>
+              <option value="CA">California (CA)</option>
+              <option value="NV">Nevada (NV)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="zip_code">Zip</label>
+            <input name="zip_code" type="number" class="form-control" id="zip_code" placeholder="Required">
+          </div>
+          <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input name="phone_number" type="tel" class="form-control" id="phone_number" placeholder="(555)555-5555 (Required)">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <p>
+          Please fill all required fields to continue. <a href="/completeLogin">Cancel</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
