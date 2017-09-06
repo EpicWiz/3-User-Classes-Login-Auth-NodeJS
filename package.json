@@ -1,5 +1,5 @@
 {
-  "name": "Armet-ClientPortal",
+  "name": "ClientPortal",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/franciscodeppe/Armet-ClientPortal.git"
+    "url": "git+https://github.com/EpicWiz/3-User-Classes-Login-Auth-NodeJS.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/franciscodeppe/Armet-ClientPortal/issues"
+    "url": "https://github.com/EpicWiz/3-User-Classes-Login-Auth-NodeJS/issues"
   },
-  "homepage": "https://github.com/franciscodeppe/Armet-ClientPortal#readme",
+  "homepage": "https://github.com/EpicWiz/3-User-Classes-Login-Auth-NodeJS",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
